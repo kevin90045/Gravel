@@ -14,7 +14,7 @@ public class DropRock : MonoBehaviour
     public bool Finish = false;
     public int NumOfGravel = 100;
     public int NumOfScene = 1;
-    public float CheckTimeInterval = 5; // unit: second
+    public float CheckTimeInterval = 5; //unit: second
     public float DropTimeInterval = 0.1f; // unit: second
     public int StopGravelsNum = 0;
     public float TimeOutThreshold = 60; // unit: second
@@ -164,7 +164,7 @@ public class DropRock : MonoBehaviour
     private void WriteXML(string filename)
     {
         XmlDocument xmlDoc = new XmlDocument();
-        XmlElement root = xmlDoc.CreateElement("root");
+        XmlElement root = xmlDoc.CreateElement("scene");
 
         for (int i = 0; i < Stone.childCount; i++)
         {
@@ -205,11 +205,11 @@ public class DropRock : MonoBehaviour
 
             XmlElement rotateParamRotPitch = xmlDoc.CreateElement("rot");
             rotateParamRotPitch.SetAttribute("axis", "pitch");
-            rotateParamRotPitch.SetAttribute("angle_deg", rotation.y.ToString());
+            rotateParamRotPitch.SetAttribute("angle_deg", rotation.z.ToString()); // change Y and Z order
 
             XmlElement rotateParamRotYaw = xmlDoc.CreateElement("rot");
             rotateParamRotYaw.SetAttribute("axis", "yaw");
-            rotateParamRotYaw.SetAttribute("angle_deg", rotation.z.ToString());
+            rotateParamRotYaw.SetAttribute("angle_deg", rotation.y.ToString()); // change Y and Z order
 
             rotateParam.AppendChild(rotateParamRotRoll);
             rotateParam.AppendChild(rotateParamRotPitch);
@@ -224,7 +224,7 @@ public class DropRock : MonoBehaviour
             XmlElement translateParam = xmlDoc.CreateElement("param");
             translateParam.SetAttribute("type", "vec3");
             translateParam.SetAttribute("key", "offset");
-            translateParam.SetAttribute("value", string.Format("{0};{1};{2}", position.x, position.y, position.z));
+            translateParam.SetAttribute("value", string.Format("{0};{1};{2}", position.x, position.z, position.y)); // change Y and Z order
 
             translate.AppendChild(translateParam);
             part.AppendChild(translate);
